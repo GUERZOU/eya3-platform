@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EYA3 - Vérification Complète</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .app {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #111;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* HEADER */
+        .header-complete {
+            background: linear-gradient(135deg, #FF006E, #8A2BE2);
+            padding: 20px 15px;
+            position: relative;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FFF, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-btn-small {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .register-btn {
+            background: #FFD700;
+            color: black;
+        }
+
+        .points-display {
+            background: rgba(0,0,0,0.6);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 2px solid #FFD700;
+        }
+
+        /* SECTION CHOIX MODES */
+        .modes-section {
+            padding: 0 15px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .modes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF006E;
+        }
+
+        .mode-card.active {
+            border-color: #FFD700;
+            background: rgba(255,215,0,0.1);
+        }
+
+        .mode-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .mode-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .mode-desc {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        /* SUCCÈS */
+        .rewards-section {
+            background: rgba(255,215,0,0.1);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #FFD700;
+        }
+
+        .rewards-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .reward-item {
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* APERÇU VIDÉOS */
+        .preview-section {
+            padding: 15px;
+        }
+
+        .preview-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .video-previews {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .video-preview {
+            min-width: 120px;
+            height: 80px;
+            background: linear-gradient(45deg, #FF006E, #8A2BE2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* BOUTON ACTION */
+        .action-section {
+            padding: 20px 15px;
+            text-align: center;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #FF006E, #8A2BE2);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* AUTH */
+        .auth-screen {
+            padding: 40px 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .input-field {
+            padding: 15px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+        }
+
+        /* MAIN APP */
+        .main-app {
+            display: none;
+            padding: 20px;
+        }
+
+        .test-result {
+            background: rgba(0,255,0,0.1);
+            border: 2px solid #00D26A;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- ÉCRAN PRINCIPAL -->
+        <div id="mainScreen">
+            <!-- HEADER -->
+            <div class="header-complete">
+                <div class="top-bar">
+                    <div class="logo">EYA3</div>
+                    <div class="auth-buttons">
+                        <button class="auth-btn-small login-btn" onclick="testButton('Connexion')">Connexion</button>
+                        <button class="auth-btn-small register-btn" onclick="testButton('Inscription')">Inscription</button>
+                    </div>
+                </div>
+                <div class="points-display" id="pointsDisplay">⭐ 1,250 points</div>
+            </div>
+
+            <!-- MODES -->
+            <div class="modes-section">
+                <div class="section-title">🎯 CHOISIS TON EXPÉRIENCE</div>
+                <div class="modes-grid">
+                    <div class="mode-card active" onclick="testButton('Mode 5S')">
+                        <div class="mode-icon">⚡</div>
+                        <div class="mode-title">5S VIRAL</div>
+                        <div class="mode-desc">Vidéos courtes tendances</div>
+                    </div>
+                    <div class="mode-card" onclick="testButton('Mode Local')">
+                        <div class="mode-icon">📍</div>
+                        <div class="mode-title">LOCAL</div>
+                        <div class="mode-desc">Près de chez toi</div>
+                    </div>
+                    <div class="mode-card" onclick="testButton('Mode Créatif')">
+                        <div class="mode-icon">✨</div>
+                        <div class="mode-title">CRÉATIF</div>
+                        <div class="mode-desc">Avec effets IA</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUCCÈS -->
+            <div class="rewards-section">
+                <div class="rewards-title">🏆 TON SUCCÈS</div>
+                <div class="rewards-grid">
+                    <div class="reward-item" onclick="testButton('Stat Vidéos')">📈 12 vidéos</div>
+                    <div class="reward-item" onclick="testButton('Stat Abonnés')">👥 1.2K abonnés</div>
+                    <div class="reward-item" onclick="testButton('Stat Points')">💰 1,250 pts</div>
+                    <div class="reward-item" onclick="testButton('Stat Classement')">⭐ Top 15%</div>
+                </div>
+            </div>
+
+            <!-- APERÇU -->
+            <div class="preview-section">
+                <div class="preview-title">🎬 APERÇU DES TENDANCES</div>
+                <div class="video-previews">
+                    <div class="video-preview" onclick="testButton('Aperçu 5S')">⚡ 5S VIRAL</div>
+                    <div class="video-preview" onclick="testButton('Aperçu Local')">📍 PRÈS DE TOI</div>
+                    <div class="video-preview" onclick="testButton('Aperçu Créatif')">✨ CRÉATION IA</div>
+                    <div class="video-preview" onclick="testButton('Aperçu Tendance')">🔥 TENDANCE</div>
+                </div>
+            </div>
+
+            <!-- ACTION -->
+            <div class="action-section">
+                <button class="start-btn" onclick="testButton('Commencer Expérience')">
+                    COMMENCER L'EXPÉRIENCE ▶
+                </button>
+            </div>
+        </div>
+
+        <!-- ÉCRAN AUTH -->
+        <div class="auth-screen" id="authScreen">
+            <div class="logo" style="font-size: 48px; margin: 20px 0;">EYA3</div>
+            
+            <div class="auth-form" id="loginForm">
+                <input type="text" class="input-field" placeholder="Email" onclick="testButton('Champ Email')">
+                <input type="password" class="input-field" placeholder="Mot de passe" onclick="testButton('Champ Mot de passe')">
+                <button class="start-btn" style="font-size: 16px;" onclick="testButton('Bouton Connexion')">Se connecter</button>
+                <button class="auth-btn-small login-btn" onclick="testButton('Retour Auth')">Retour</button>
+            </div>
+
+            <div class="auth-form" id="registerForm" style="display: none;">
+                <input type="text" class="input-field" placeholder="Nom d'utilisateur" onclick="testButton('Champ Username')">
+                <input type="email" class="input-field" placeholder="Email" onclick="testButton('Champ Email Inscription')">
+                <input type="password" class="input-field" placeholder="Mot de passe" onclick="testButton('Champ MDP Inscription')">
+                <button class="start-btn" style="font-size: 16px;" onclick="testButton('Bouton Inscription')">Créer mon compte</button>
+                <button class="auth-btn-small login-btn" onclick="testButton('Retour Inscription')">Retour</button>
+            </div>
+        </div>
+
+        <!-- APP PRINCIPALE -->
+        <div class="main-app" id="mainApp">
+            <div class="test-result" id="testResult">
+                ✅ Test en cours...
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="logo" style="font-size: 32px;">EYA3</div>
+                <p style="margin: 20px 0;">Mode sélectionné : <span id="selectedMode">5S VIRAL</span></p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0;">
+                    <button class="auth-btn-small login-btn" onclick="testButton('Action Like')">❤️ Like</button>
+                    <button class="auth-btn-small login-btn" onclick="testButton('Action Comment')">💬 Comment</button>
+                    <button class="auth-btn-small login-btn" onclick="testButton('Action Share')">↗️ Share</button>
+                    <button class="auth-btn-small login-btn" onclick="testButton('Action Save')">⭐ Save</button>
+                </div>
+                
+                <button class="start-btn" style="font-size: 14px; padding: 12px 20px;" onclick="testButton('Retour Accueil')">
+                    ← Retour à l'accueil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // VARIABLES DE TEST
+        let testCount = 0;
+        let selectedMode = '5s';
+        let userPoints = 1250;
+
+        // FONCTION DE TEST UNIVERSELLE
+        function testButton(buttonName) {
+            testCount++;
+            const result = document.getElementById('testResult');
+            
+            // Animation de feedback
+            event.target.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.target.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Logique spécifique selon le bouton
+            switch(buttonName) {
+                case 'Connexion':
+                    showAuth('login');
+                    break;
+                case 'Inscription':
+                    showAuth('register');
+                    break;
+                case 'Mode 5S':
+                case 'Mode Local':
+                case 'Mode Créatif':
+                    selectMode(buttonName.split(' ')[1].toLowerCase());
+                    break;
+                case 'Commencer Expérience':
+                    startExperience();
+                    break;
+                case 'Retour Auth':
+                case 'Retour Inscription':
+                case 'Retour Accueil':
+                    showMain();
+                    break;
+                case 'Bouton Connexion':
+                    userPoints += 10;
+                    updatePoints();
+                    showMain();
+                    break;
+                case 'Bouton Inscription':
+                    userPoints += 50;
+                    updatePoints();
+                    showMain();
+                    break;
+                default:
+                    // Pour tous les autres boutons
+                    userPoints += 5;
+                    updatePoints();
+            }
+            
+            // Affichage du résultat
+            result.innerHTML = `✅ <strong>${buttonName}</strong> - Fonctionne !<br>Tests réussis: ${testCount}`;
+            result.style.display = 'block';
+            
+            console.log(`🎯 ${buttonName} - TEST RÉUSSI (${testCount})`);
+        }
+
+        // FONCTIONS PRINCIPALES
+        function selectMode(mode) {
+            selectedMode = mode;
+            document.querySelectorAll('.mode-card').forEach(card => card.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function showAuth(type) {
+            document.getElementById('mainScreen').style.display = 'none';
+            document.getElementById('authScreen').style.display = 'block';
+            document.getElementById('mainApp').style.display = 'none';
+            
+            if (type === 'login') {
+                document.getElementById('loginForm').style.display = 'flex';
+                document.getElementById('registerForm').style.display = 'none';
+            } else {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'flex';
+            }
+        }
+
+        function showMain() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('mainScreen').style.display = 'block';
+        }
+
+        function startExperience() {
+            document.getElementById('mainScreen').style.display = 'none';
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            
+            const modeText = selectedMode === '5s' ? '5S VIRAL' : 
+                           selectedMode === 'local' ? 'LOCAL' : 'CRÉATIF';
+            document.getElementById('selectedMode').textContent = modeText;
+        }
+
+        function updatePoints() {
+            document.getElementById('pointsDisplay').textContent = `⭐ ${userPoints} points`;
+        }
+
+        // INITIALISATION
+        console.log('🎯 EYA3 - Vérification complète activée');
+        console.log('🔍 Testez tous les boutons - Chaque clic doit fonctionner !');
+    </script>
+</body>
+</html>
